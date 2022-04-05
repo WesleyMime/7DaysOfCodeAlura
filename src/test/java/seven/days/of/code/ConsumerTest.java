@@ -1,5 +1,7 @@
 package seven.days.of.code;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,5 +35,27 @@ public class ConsumerTest {
 	public void shouldReturnJson() {
 		Assertions.assertEquals(RESPONSE, consumerMock.request("a"));
 	}
+	
+	@Test
+	public void shouldSplitMovies() {
+		Consumer consumer = new Consumer();
 
+		List<Movie> movies = consumer.movies(RESPONSE);
+		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
+	}
+	
+	@Test
+	public void shouldCreateListsFromFields() {
+		Consumer consumer = new Consumer();
+
+		List<Movie> movies = consumer.movies(RESPONSE);
+		
+		List<List<String>> listFromFields = consumer.listFromFields(movies);
+		
+		Assertions.assertEquals("The Shawshank Redemption", listFromFields.get(0).get(0));
+		Assertions.assertEquals(
+				"https://imdb-api.com/images/original/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlY"
+				+ "WMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_Ratio0.6716_AL_.jpg"
+				, listFromFields.get(1).get(0));
+	}
 }
