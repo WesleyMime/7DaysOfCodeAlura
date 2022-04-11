@@ -22,7 +22,7 @@ public class Consumer {
 
 		String request = consumer.request(args[0]);
 
-		List<Movie> list = consumer.movies(request);
+		List<Movie> list = consumer.moviesManually(RESPONSE);
 		list.forEach(System.out::println);
 	}
 
@@ -43,13 +43,53 @@ public class Consumer {
 		return response;
 	}
 
-	public List<Movie> movies(String json) {
+	public List<Movie> moviesGson(String json) {
 		Gson gson = new Gson();
-		String newJson = json.substring(9, (json.length() - 19));
+		String newJson = keepOnlyListOfMoviesInJson(json);
 
 		Type listType = new TypeToken<ArrayList<Movie>>() {}.getType();
 		List<Movie> list = gson.fromJson(newJson, listType);
 
 		return Collections.unmodifiableList(list);
+	}
+	
+	public List<Movie> moviesJackson(String json) {
+		String newJson = keepOnlyListOfMoviesInJson(json);
+		// TODO
+		
+		return null;
+	}
+	
+	public List<Movie> moviesManually(String json) {
+		String newJson = keepOnlyListOfMoviesInJson(json);
+		List<Movie> listMovies = new ArrayList<>();
+		
+		newJson = newJson.replace("[", "");
+		newJson = newJson.replace("{", "");
+
+		
+		String[] movies = newJson.split("},");
+		
+		for (String movie : movies) {
+			String[] keyValue = movie.split("\",\"");
+			String title = getValue(keyValue, 2);
+			Integer year = Integer.valueOf(getValue(keyValue, 4));
+			String image = getValue(keyValue, 5);
+			Double rating = Double.valueOf(getValue(keyValue, 7));
+			listMovies.add(new Movie(title, year, image, rating));	
+			
+		}
+		return listMovies;
+	}
+
+	private String getValue(String[] attributes, int i) {
+		String attribute = attributes[i];
+		int valuePosition = attribute.indexOf(":");
+		// 2 to get first char after :"
+		return attribute.substring(valuePosition + 2);
+	}
+
+	private String keepOnlyListOfMoviesInJson(String json) {
+		return json.substring(9, (json.length() - 19));
 	}
 }

@@ -9,7 +9,12 @@ public final class Movie {
 	private String image;
 	private Double imDbRating;
 	
-	public Movie(String title, Integer year, String image, Double imDbRating) {}
+	public Movie(String title, Integer year, String image, Double imDbRating) {
+		this.title = title;
+		this.year = year;
+		this.image = image;
+		this.imDbRating = imDbRating;
+	}
 
 	public String getTitle() {
 		return title;
