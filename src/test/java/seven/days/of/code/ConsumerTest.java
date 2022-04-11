@@ -47,7 +47,8 @@ public class ConsumerTest {
 		Consumer consumer = new Consumer();
 
 		List<Movie> movies = consumer.moviesJackson(RESPONSE);
-		Assertions.assertNull(movies);
+		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
+		Assertions.assertEquals(1966, movies.get(9).getYear());
 	}
 	
 	@Test

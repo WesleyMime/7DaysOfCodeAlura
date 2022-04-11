@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,7 +26,9 @@ public class Consumer {
 
 		String request = consumer.request(args[0]);
 
-		List<Movie> list = consumer.moviesManually(RESPONSE);
+//		List<Movie> list = consumer.moviesGson(request);
+//		List<Movie> list = consumer.moviesJackson(request);
+		List<Movie> list = consumer.moviesManually(request);
 		list.forEach(System.out::println);
 	}
 
@@ -55,9 +61,16 @@ public class Consumer {
 	
 	public List<Movie> moviesJackson(String json) {
 		String newJson = keepOnlyListOfMoviesInJson(json);
-		// TODO
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		return null;
+		List<Movie> movies = new ArrayList<>();
+		try {
+			movies = mapper.readValue(newJson, new TypeReference<List<Movie>>() {});			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return movies;
 	}
 	
 	public List<Movie> moviesManually(String json) {

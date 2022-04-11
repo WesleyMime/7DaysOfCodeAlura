@@ -9,6 +9,8 @@ public final class Movie {
 	private String image;
 	private Double imDbRating;
 	
+	public Movie() {}
+	
 	public Movie(String title, Integer year, String image, Double imDbRating) {
 		this.title = title;
 		this.year = year;
