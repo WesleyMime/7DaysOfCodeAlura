@@ -1,6 +1,9 @@
 package seven.days.of.code;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -22,14 +25,25 @@ import com.google.gson.reflect.TypeToken;
 public class Consumer {
 
 	public static void main(String[] args) {
+//		args[0] == api_key 
+//		args[1] == Path for creation of html
+//		C:\Users\User\Desktop\imdb250.html
+		
 		Consumer consumer = new Consumer();
 
-		String request = consumer.request(args[0]);
+		String request = consumer.request(args[0]);		
 
 //		List<Movie> list = consumer.moviesGson(request);
 //		List<Movie> list = consumer.moviesJackson(request);
 		List<Movie> list = consumer.moviesManually(request);
 		list.forEach(System.out::println);
+		
+		try (PrintWriter printWriter = new PrintWriter(new File(args[1]))) {			
+			HTMLGenerator html = new HTMLGenerator(printWriter);
+			html.generate(list);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String request(String api_key) {
@@ -70,7 +84,7 @@ public class Consumer {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return movies;
+		return Collections.unmodifiableList(movies);
 	}
 	
 	public List<Movie> moviesManually(String json) {
@@ -92,7 +106,7 @@ public class Consumer {
 			listMovies.add(new Movie(title, year, image, rating));	
 			
 		}
-		return listMovies;
+		return Collections.unmodifiableList(listMovies);
 	}
 
 	private String getValue(String[] attributes, int i) {
