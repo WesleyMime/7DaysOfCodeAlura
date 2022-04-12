@@ -28,7 +28,7 @@ public class HTMLGenerator {
 					String.format(
 							card, movie.getTitle(), movie.getImage(), movie.getTitle(), movie.getImDbRating(), movie.getYear()));
 		}
-		html = html.concat("</body></html");
+		html = html.concat("</body></html>");
 		try {
 			writer.write(html);
 		} catch (IOException e) {

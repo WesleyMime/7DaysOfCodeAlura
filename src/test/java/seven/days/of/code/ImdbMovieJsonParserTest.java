@@ -1,20 +1,15 @@
 package seven.days.of.code;
 
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsumerTest {
-
-	@Mock
-	private Consumer consumerMock;
+public class ImdbMovieJsonParserTest {
+	
 
 	private static final String RESPONSE = "{\"items\":[{\"id\":\"tt0111161\",\"rank\":\"1\",\"title\":\"The Shawshank Redemption\",\"fullTitle\":\"The Shawshank Redemption (1994)\",\"year\":\"1994\",\"image\":\"https://imdb-api.com/images/original/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_Ratio0.6716_AL_.jpg\",\"crew\":\"Frank Darabont (dir.), Tim Robbins, Morgan Freeman\",\"imDbRating\":\"9.2\",\"imDbRatingCount\":\"2568976\"},"
 			+ "{\"id\":\"tt0068646\",\"rank\":\"2\",\"title\":\"The Godfather\",\"fullTitle\":\"The Godfather (1972)\",\"year\":\"1972\",\"image\":\"https://imdb-api.com/images/original/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_Ratio0.7015_AL_.jpg\",\"crew\":\"Francis Ford Coppola (dir.), Marlon Brando, Al Pacino\",\"imDbRating\":\"9.2\",\"imDbRatingCount\":\"1768684\"},"
@@ -27,35 +22,26 @@ public class ConsumerTest {
 			+ "{\"id\":\"tt0120737\",\"rank\":\"9\",\"title\":\"The Lord of the Rings: The Fellowship of the Ring\",\"fullTitle\":\"The Lord of the Rings: The Fellowship of the Ring (2001)\",\"year\":\"2001\",\"image\":\"https://imdb-api.com/images/original/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_Ratio0.6716_AL_.jpg\",\"crew\":\"Peter Jackson (dir.), Elijah Wood, Ian McKellen\",\"imDbRating\":\"8.8\",\"imDbRatingCount\":\"1789107\"},"
 			+ "{\"id\":\"tt0060196\",\"rank\":\"10\",\"title\":\"The Good, the Bad and the Ugly\",\"fullTitle\":\"The Good, the Bad and the Ugly (1966)\",\"year\":\"1966\",\"image\":\"https://imdb-api.com/images/original/MV5BNjJlYmNkZGItM2NhYy00MjlmLTk5NmQtNjg1NmM2ODU4OTMwXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_Ratio0.6716_AL_.jpg\",\"crew\":\"Sergio Leone (dir.), Clint Eastwood, Eli Wallach\",\"imDbRating\":\"8.8\",\"imDbRatingCount\":\"738865\"}],\"errorMessage\":\"\"}";
 
-	@Test
-	public void shouldReturnJson() {
-		when(consumerMock.request("a")).thenReturn(RESPONSE);
-		Assertions.assertEquals(RESPONSE, consumerMock.request("a"));
-	}
-
+	private final ImdbMovieJsonParser parser = new ImdbMovieJsonParser(RESPONSE);
+	
 	@Test
 	public void shouldCreateListOfMoviesWithGson() {
-		Consumer consumer = new Consumer();
 
-		List<Movie> movies = consumer.moviesGson(RESPONSE);
+		List<Movie> movies = parser.gson();
 		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
 		Assertions.assertEquals(1966, movies.get(9).getYear());
 	}
 	
 	@Test
 	public void shouldCreateListOfMoviesWithJackson() {
-		Consumer consumer = new Consumer();
-
-		List<Movie> movies = consumer.moviesJackson(RESPONSE);
+		List<Movie> movies = parser.jackson();
 		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
 		Assertions.assertEquals(1966, movies.get(9).getYear());
 	}
 	
 	@Test
 	public void shouldCreateListOfMoviesManually() {
-		Consumer consumer = new Consumer();
-
-		List<Movie> movies = consumer.moviesManually(RESPONSE);
+		List<Movie> movies = parser.manually();
 		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
 		Assertions.assertEquals(1966, movies.get(9).getYear());
 	}
