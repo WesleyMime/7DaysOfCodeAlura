@@ -28,21 +28,21 @@ public class ImdbMovieJsonParserTest {
 	public void shouldCreateListOfMoviesWithGson() {
 
 		List<Movie> movies = parser.gson();
-		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
-		Assertions.assertEquals(1966, movies.get(9).getYear());
+		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).title());
+		Assertions.assertEquals(1966, movies.get(9).year());
 	}
 	
 	@Test
 	public void shouldCreateListOfMoviesWithJackson() {
 		List<Movie> movies = parser.jackson();
-		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
-		Assertions.assertEquals(1966, movies.get(9).getYear());
+		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).title());
+		Assertions.assertEquals(1966, movies.get(9).year());
 	}
 	
 	@Test
 	public void shouldCreateListOfMoviesManually() {
 		List<Movie> movies = parser.manually();
-		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).getTitle());
-		Assertions.assertEquals(1966, movies.get(9).getYear());
+		Assertions.assertEquals("The Shawshank Redemption", movies.get(0).title());
+		Assertions.assertEquals(1966, movies.get(9).year());
 	}
 }

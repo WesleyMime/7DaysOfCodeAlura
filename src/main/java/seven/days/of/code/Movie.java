@@ -2,42 +2,62 @@ package seven.days.of.code;
 
 import com.google.gson.Gson;
 
-public final class Movie {
+public final class Movie implements Content {
 
 	private String title;
 	private Integer year;
 	private String image;
-	private Double imDbRating;
+	private String imDbRating;
 	
 	public Movie() {}
 	
-	public Movie(String title, Integer year, String image, Double imDbRating) {
+	public Movie(String title, Integer year, String image, String imDbRating) {
 		this.title = title;
 		this.year = year;
 		this.image = image;
 		this.imDbRating = imDbRating;
 	}
 
-	public String getTitle() {
+	public String title() {
 		return title;
 	}
 
-	public Integer getYear() {
+	public Integer year() {
 		return year;
 	}
 
-	public String getImage() {
+	public String image() {
 		return image;
 	}
 
-	public Double getImDbRating() {
+	public String rating() {
 		return imDbRating;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public void setImDbRating(String imDbRating) {
+		this.imDbRating = imDbRating;
+	}
+	
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 	
 	@Override
 	public String toString() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
+	}
+
+	public String type() {
+		return "Movie";
 	}
 
 }

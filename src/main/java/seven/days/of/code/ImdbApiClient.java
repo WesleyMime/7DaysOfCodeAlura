@@ -8,7 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
-public class ImdbApiClient {
+public class ImdbApiClient implements ApiClient{
 
 	private final String api_key;
 	

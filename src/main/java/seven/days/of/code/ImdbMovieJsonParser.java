@@ -56,7 +56,7 @@ public class ImdbMovieJsonParser {
 			String title = getValue(keyValue, 2);
 			Integer year = Integer.valueOf(getValue(keyValue, 4));
 			String image = getValue(keyValue, 5);
-			Double rating = Double.valueOf(getValue(keyValue, 7));
+			String rating = getValue(keyValue, 7);
 			listMovies.add(new Movie(title, year, image, rating));	
 			
 		}

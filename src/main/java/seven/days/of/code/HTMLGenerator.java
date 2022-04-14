@@ -12,21 +12,21 @@ public class HTMLGenerator {
 		this.writer = writer;
 	}
 	
-	public void generate(List<Movie> movies) {
+	public void generate(List<? extends Content> contents) {
 		String html = createHeader();
-		for (Movie movie : movies) {
+		for (Content content : contents) {
 			String card = """							
 						<div class=\"card text-white bg-dark mb-3\" style=\"max-width: 18rem;\">
 							<h4 class=\"card-header\">%s</h4>
 							<div class=\"card-body\">
 								<img class=\"card-img\" src=\"%s\" alt=\"%s\">
-								<p class=\"card-text mt-2\">Nota: %s - Ano: %s</p>
+								<p class=\"card-text mt-2\">%s - %s - Ano: %s</p>
 							</div>
 						</div>
 					""";
 			html = html.concat(
 					String.format(
-							card, movie.getTitle(), movie.getImage(), movie.getTitle(), movie.getImDbRating(), movie.getYear()));
+							card, content.title(), content.image(), content.title(), content.type(), content.rating(), content.year()));
 		}
 		html = html.concat("</body></html>");
 		try {
