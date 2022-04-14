@@ -1,6 +1,6 @@
 package seven.days.of.code;
 
-public interface Content {
+public interface Content extends Comparable<Content>{
 
 	String title();
 

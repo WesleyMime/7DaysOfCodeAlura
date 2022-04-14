@@ -62,4 +62,9 @@ public final class Movie implements Content {
 		return "Movie";
 	}
 
+	@Override
+	public int compareTo(Content content) {
+		return this.title.compareTo(content.title());
+	}
+
 }

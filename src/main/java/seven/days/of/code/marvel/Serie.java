@@ -46,4 +46,9 @@ public final class Serie implements Content {
 		return "Serie";
 	}
 
+	@Override
+	public int compareTo(Content content) {
+		return this.title.compareTo(content.title());
+	}
+
 }
