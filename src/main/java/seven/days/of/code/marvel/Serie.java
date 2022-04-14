@@ -1,6 +1,8 @@
-package seven.days.of.code;
+package seven.days.of.code.marvel;
 
 import com.google.gson.Gson;
+
+import seven.days.of.code.Content;
 
 public final class Serie implements Content {
 

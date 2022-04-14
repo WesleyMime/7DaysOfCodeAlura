@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import seven.days.of.code.imdb.ImdbMovieJsonParser;
+import seven.days.of.code.imdb.Movie;
+
 @ExtendWith(MockitoExtension.class)
 public class ImdbMovieJsonParserTest {
 	

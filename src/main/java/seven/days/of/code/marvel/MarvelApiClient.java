@@ -1,4 +1,4 @@
-package seven.days.of.code;
+package seven.days.of.code.marvel;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,7 +8,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
-import org.apache.commons.codec.digest.DigestUtils; 
+import org.apache.commons.codec.digest.DigestUtils;
+
+import seven.days.of.code.ApiClient; 
 
 public class MarvelApiClient implements ApiClient {
 	

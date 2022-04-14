@@ -1,4 +1,4 @@
-package seven.days.of.code;
+package seven.days.of.code.marvel;
 
 public class Thumbnail {
 	

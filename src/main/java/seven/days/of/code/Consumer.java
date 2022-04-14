@@ -6,6 +6,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import seven.days.of.code.imdb.ImdbApiClient;
+import seven.days.of.code.imdb.ImdbMovieJsonParser;
+import seven.days.of.code.marvel.MarvelApiClient;
+import seven.days.of.code.marvel.MarvelJsonParser;
+
 public class Consumer {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package seven.days.of.code;
+package seven.days.of.code.imdb;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
